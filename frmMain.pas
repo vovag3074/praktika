@@ -6,7 +6,7 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, UniProvider,
   InterBaseUniProvider, DBAccess, Uni, Data.DB, FMX.Controls.Presentation,
-  FMX.StdCtrls, TgBotApi, MemDS, System.JSON;
+  FMX.StdCtrls, TgBotApi, MemDS, System.JSON, UniDacFmx, System.IOUtils;
 
 type
   TfmMain = class(TForm)
@@ -21,6 +21,7 @@ type
     lbStatus: TLabel;
     qObInv: TUniQuery;
     qObj: TUniQuery;
+    UniConnectDialogFmx1: TUniConnectDialogFmx;
     procedure FormCreate(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure t1Timer(Sender: TObject);
@@ -143,7 +144,7 @@ begin
 {$ENDIF} 
 {$IFDEF MACOS}
   ibc.SpecificOptions.Values['clientLibrary']:= 'libfbclient.dylib';
-  IBC.Database:=ExtractFilePath(ParamStr(0))+'Data\SCHOOL.FDB';
+  IBC.Database:=TPath.Combine(TPath.GetSharedDocumentsPath,'SCHOOL.FDB');// +'Data\SCHOOL.FDB';
 {$ENDIF}
 UserList:=TStringList.Create;
 UserList.Clear;
